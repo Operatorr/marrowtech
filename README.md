@@ -1,63 +1,38 @@
-# Astro Starter Kit: Blog
+# 骨 marrowtech
 
-```sh
-pnpm create astro@latest -- --template blog
-```
+The personal showcase hub for **Alexander Widing** — full-stack & game developer, Stockholm.
+A single-screen hub that cards up everything he builds (DoMarrow, MarrowTalk, Ashen Omega,
+widing.dev) plus a journal/blog. Built with [Astro](https://astro.build).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The look is *Scandinavian-minimal meets terminal*: a dark warm-charcoal canvas, Swiss
+neo-grotesque type, electric blue + violet accents, quiet Japanese kana accents, streaming
+terminal text, and interactive dither / ASCII shader backgrounds.
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Structure
 
 ```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+src/
+├── components/marrow/   # design-system components (Nav, Hero, ProjectCard, Terminal, …)
+├── layouts/             # Base (shell + nav + footer) and BlogPost
+├── pages/               # / (hub), /blog, /blog/[slug]
+├── content/blog/        # Markdown/MDX posts
+├── scripts/             # client behaviors: shaders, terminal streaming, hub interactions
+└── styles/              # design tokens + base + component + hub CSS (entry: app.css)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- **`/`** — the hub: hero (streaming headline over a WebGL dither field), the four-project
+  showcase grid, a journal teaser (latest posts), an about/résumé section, and a contact footer.
+- **`/blog`** — the full journal index, restyled to the design system.
+- **`/blog/[slug]`** — long-form posts (`src/layouts/BlogPost.astro`, `.mt-prose` styling).
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+The design system that this implements lives in `design_system/` — it is reference-only and
+safe to delete; nothing under `src/` imports from it.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## Commands
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+| Command        | Action                                       |
+| :------------- | :------------------------------------------- |
+| `pnpm install` | Install dependencies                         |
+| `pnpm dev`     | Start the dev server at `localhost:4321`     |
+| `pnpm build`   | Build the production site to `./dist/`        |
+| `pnpm preview` | Preview the production build locally          |

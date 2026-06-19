@@ -1,0 +1,59 @@
+---
+/* marrowtech — about / résumé teaser (ported from design_system hub/About.jsx). */
+import SectionMarker from './SectionMarker.astro';
+import Button from './Button.astro';
+import Terminal from './Terminal.astro';
+import { CV_URL } from '../../consts';
+---
+
+<section class="hub-section hub-about" id="about">
+  <div class="hub-section-head">
+    <SectionMarker index="03" label="About" kana="経歴" tone="violet" />
+  </div>
+
+  <div class="hub-about-grid">
+    <div class="hub-about-copy">
+      <h2 class="hub-about-title">
+        I build the whole stack — from the database to the pixel, and the server behind the game.
+      </h2>
+      <p>
+        Based in Stockholm. I like small, sharp tools, encryption that actually protects people,
+        and real-time systems that don't stutter. The full CV is on widing.dev.
+      </p>
+      <div class="hub-about-stack">
+        <span class="hub-about-stack-lbl">Stack</span>
+        <div class="hub-about-tags">
+          <span class="mt-tag">TypeScript</span>
+          <span class="mt-tag">React</span>
+          <span class="mt-tag">Go</span>
+          <span class="mt-tag mt-tag-accent">Rust</span>
+          <span class="mt-tag">Godot</span>
+          <span class="mt-tag">Postgres</span>
+          <span class="mt-tag">WebGL</span>
+          <span class="mt-tag mt-tag-violet">Cryptography</span>
+        </div>
+      </div>
+      <div class="hub-about-cta">
+        <Button variant="primary" icon="arrow" href={CV_URL} target="_blank" rel="noopener">Full CV</Button>
+      </div>
+    </div>
+
+    <div class="hub-about-term">
+      <Terminal
+        title="alexander@marrowtech ~ % cat profile"
+        speed={16}
+        lineDelay={140}
+        lines={[
+          { kind: 'cmd', text: 'cat profile.txt' },
+          { kind: 'out', text: 'name      : Alexander Widing' },
+          { kind: 'out', text: 'role      : Full-stack & Game Developer' },
+          { kind: 'out', text: 'location  : Stockholm, Sweden' },
+          { kind: 'out', text: 'focus     : web · real-time · crypto · games' },
+          { kind: 'ok', text: 'status    : open to interesting problems' },
+          { kind: 'cmd', text: 'uptime' },
+          { kind: 'dim', text: 'shipping since ~2016 · 4 live projects' },
+        ]}
+      />
+    </div>
+  </div>
+</section>

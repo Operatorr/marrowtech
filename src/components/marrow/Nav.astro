@@ -1,0 +1,28 @@
+---
+/* marrowtech — top navigation (ported from design_system hub/Nav.jsx).
+   Shared across pages; section links use absolute /#anchors so they work
+   from any route. Blurs in on scroll (see src/scripts/hub.ts). */
+import Button from './Button.astro';
+import { CV_URL } from '../../consts';
+
+const path = Astro.url.pathname;
+const onBlog = path.startsWith('/blog');
+---
+
+<header class="hub-nav">
+  <div class="hub-nav-inner">
+    <a class="hub-logo" href="/">
+      <span class="hub-logo-mark">骨</span>
+      <span class="hub-logo-word">marrowtech</span>
+    </a>
+    <nav class="hub-nav-links">
+      <a href="/#work">Work<span class="jp">作品</span></a>
+      <a href="/#about">About<span class="jp">経歴</span></a>
+      <a href="/blog" aria-current={onBlog ? 'page' : undefined}>Journal<span class="jp">日誌</span></a>
+      <a href="/#contact">Contact<span class="jp">連絡</span></a>
+    </nav>
+    <div class="hub-nav-right">
+      <Button variant="secondary" size="sm" href={CV_URL} target="_blank" rel="noopener" icon="external">CV</Button>
+    </div>
+  </div>
+</header>

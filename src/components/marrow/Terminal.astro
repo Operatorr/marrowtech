@@ -1,0 +1,56 @@
+---
+/* marrowtech — Terminal (ported from design_system brand/Terminal.jsx).
+   Renders the chrome + an empty body; src/scripts/terminal.ts reads the
+   embedded JSON and streams the lines in on view. */
+interface TermLine {
+  kind?: 'cmd' | 'out' | 'ok' | 'err' | 'dim';
+  text: string;
+  prompt?: string;
+}
+interface Props {
+  lines: TermLine[];
+  title?: string;
+  prompt?: string;
+  speed?: number;
+  startDelay?: number;
+  lineDelay?: number;
+  caret?: boolean;
+  chrome?: boolean;
+  class?: string;
+}
+
+const {
+  lines,
+  title = 'marrowtech — shell',
+  prompt = '~/marrowtech $',
+  speed = 18,
+  startDelay = 200,
+  lineDelay = 240,
+  caret = true,
+  chrome = true,
+  class: className = '',
+} = Astro.props;
+
+const cls = ['mt-term', chrome ? 'mt-term-chrome' : '', className].filter(Boolean).join(' ');
+---
+
+<div
+  class={cls}
+  data-term
+  data-speed={speed}
+  data-start-delay={startDelay}
+  data-line-delay={lineDelay}
+  data-prompt={prompt}
+  data-caret={String(caret)}
+>
+  {
+    chrome && (
+      <div class="mt-term-bar">
+        <span class="d"></span><span class="d"></span><span class="d"></span>
+        <span class="t">{title}</span>
+      </div>
+    )
+  }
+  <div class="mt-term-body" style={chrome ? undefined : 'padding:0'}></div>
+  <script type="application/json" class="mt-term-data" is:inline set:html={JSON.stringify(lines)}></script>
+</div>

@@ -1,0 +1,110 @@
+/* ============================================================
+   marrowtech — BASE / RESET
+   Minimal reset + base element styling wired to tokens.
+   Ported from design_system/base.css.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 8px);
+}
+
+body {
+  background: var(--surface-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-normal);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-normal);
+  font-feature-settings: "ss01", "cv01", "tnum" 0;
+  min-height: 100svh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+a { color: inherit; text-decoration: none; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+img, svg, canvas, video { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Shared utility primitives the kits reuse ---- */
+
+.mt-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.mt-kana {
+  font-family: var(--font-jp);
+  letter-spacing: var(--tracking-kana);
+  font-weight: var(--weight-regular);
+}
+
+.mt-mono {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+}
+
+/* Vertical kana run — section-edge accent */
+.mt-kana-vertical {
+  font-family: var(--font-jp);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: var(--tracking-kana);
+  color: var(--text-muted);
+}
+
+.mt-hairline {
+  border: none;
+  border-top: var(--border-hairline) solid var(--border-subtle);
+}
+
+.sr-only {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

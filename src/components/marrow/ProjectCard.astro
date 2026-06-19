@@ -1,0 +1,90 @@
+---
+/* marrowtech — ProjectCard (ported from design_system brand/ProjectCard.jsx).
+   The media slot accepts custom content (e.g. an AsciiField); otherwise
+   pass `glyph` for a big kana glyph. */
+interface Props {
+  index?: string;
+  name: string;
+  kana?: string;
+  description?: string;
+  tags?: string[];
+  status?: 'live' | 'dev' | 'idea';
+  domain?: string;
+  href?: string;
+  tone?: 'blue' | 'violet' | 'ember';
+  glyph?: string;
+  mediaHeight?: number;
+  cta?: string;
+  class?: string;
+}
+
+const {
+  index,
+  name,
+  kana,
+  description,
+  tags = [],
+  status,
+  domain,
+  href = '#',
+  tone = 'blue',
+  glyph,
+  mediaHeight,
+  cta = 'Visit',
+  class: className = '',
+} = Astro.props;
+
+const STATUS_LABEL = { live: 'Live', dev: 'In dev', idea: 'Concept' } as const;
+
+const cls = ['mt-pcard', tone === 'violet' ? 'mt-pcard-violet' : tone === 'ember' ? 'mt-pcard-ember' : '', className]
+  .filter(Boolean)
+  .join(' ');
+
+const hasMediaSlot = Astro.slots.has('media');
+const isExternal = href.startsWith('http');
+const style = mediaHeight ? `--_mh:${mediaHeight}px` : undefined;
+---
+
+<a
+  href={href}
+  class={cls}
+  style={style}
+  {...isExternal ? { target: '_blank', rel: 'noopener' } : {}}
+>
+  {
+    hasMediaSlot ? (
+      <div class="mt-pcard-media"><slot name="media" /></div>
+    ) : glyph ? (
+      <div class="mt-pcard-media"><div class="mt-pcard-media-glyph">{glyph}</div></div>
+    ) : null
+  }
+  <div class="mt-pcard-top">
+    {index != null && <span class="mt-pcard-idx">{index}</span>}
+    {
+      status && (
+        <span class={'mt-pcard-status mt-st-' + status}>
+          <span class="dot"></span>{STATUS_LABEL[status]}
+        </span>
+      )
+    }
+  </div>
+  <div class="mt-pcard-head">
+    <span class="mt-pcard-title">{name}</span>
+    {kana && <span class="mt-pcard-kana">{kana}</span>}
+  </div>
+  {description && <p class="mt-pcard-desc">{description}</p>}
+  {
+    tags.length > 0 && (
+      <div class="mt-pcard-tags">
+        {tags.map((t) => <span class="mt-pcard-tag">{t}</span>)}
+      </div>
+    )
+  }
+  <div class="mt-pcard-foot">
+    <span class="mt-pcard-domain">{domain}</span>
+    <span class="mt-pcard-go">
+      {cta}
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
+    </span>
+  </div>
+</a>

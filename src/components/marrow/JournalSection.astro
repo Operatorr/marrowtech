@@ -1,0 +1,44 @@
+---
+/* marrowtech — journal teaser on the landing page (sits under Work).
+   Shows the latest few posts as design-system tiles + a link to /blog. */
+import type { CollectionEntry } from 'astro:content';
+import SectionMarker from './SectionMarker.astro';
+import PostCard from './PostCard.astro';
+import Button from './Button.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section class="hub-section hub-journal" id="journal">
+  <div class="hub-section-head">
+    <div class="hub-section-headrow">
+      <SectionMarker index="02" label="Journal" kana="日誌" tone="violet" />
+      <a class="hub-section-more" href="/blog">All posts<span class="jp">記事</span></a>
+    </div>
+    <p class="hub-section-lead">
+      Notes on what I'm building — engineering, tooling and the occasional teardown.
+    </p>
+  </div>
+
+  <div class="hub-journal-grid">
+    {
+      posts.map((post, i) => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          href={`/blog/${post.id}/`}
+          pubDate={post.data.pubDate}
+          tone={i % 2 === 0 ? 'blue' : 'violet'}
+        />
+      ))
+    }
+  </div>
+
+  <div class="hub-journal-more">
+    <Button variant="secondary" icon="arrow" href="/blog">Read the journal</Button>
+  </div>
+</section>

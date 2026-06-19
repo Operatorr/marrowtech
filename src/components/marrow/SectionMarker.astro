@@ -1,0 +1,34 @@
+---
+/* marrowtech — SectionMarker (ported from design_system brand/SectionMarker.jsx). */
+interface Props {
+  index?: string;
+  label?: string;
+  kana?: string;
+  tone?: 'blue' | 'violet';
+  orientation?: 'horizontal' | 'vertical';
+  rule?: boolean;
+  class?: string;
+}
+
+const {
+  index,
+  label,
+  kana,
+  tone = 'blue',
+  orientation = 'horizontal',
+  rule = true,
+  class: className = '',
+} = Astro.props;
+
+const vert = orientation === 'vertical';
+const cls = [vert ? 'mt-marker-vert' : 'mt-marker', tone === 'violet' ? 'mt-marker-violet' : '', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<div class={cls}>
+  {index != null && <span class="mt-marker-idx">{index}</span>}
+  {label && <span class="mt-marker-label">{label}</span>}
+  {rule && <span class="mt-marker-rule"></span>}
+  {kana && <span class="mt-marker-kana">{kana}</span>}
+</div>

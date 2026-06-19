@@ -1,0 +1,60 @@
+---
+/* marrowtech — Button (ported from design_system core/Button.jsx). */
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'ghost' | 'violet' | 'danger';
+type Size = 'sm' | 'md' | 'lg';
+
+interface Props extends Omit<HTMLAttributes<'a'>, 'size'> {
+  variant?: Variant;
+  size?: Size;
+  icon?: 'arrow' | 'external';
+  iconPosition?: 'start' | 'end';
+  block?: boolean;
+  href?: string;
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  icon,
+  iconPosition = 'end',
+  block = false,
+  href,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const cls = ['mt-btn', `mt-btn-${variant}`, `mt-btn-${size}`, block ? 'mt-btn-block' : '', className]
+  .filter(Boolean)
+  .join(' ');
+
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag class={cls} href={href} {...rest}>
+  {
+    icon && iconPosition === 'start' && (
+      <span class="mt-btn-ico">
+        {icon === 'arrow' ? (
+          <svg class="mt-btn-arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" /></svg>
+        ) : (
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 11L11 5M11 5H6M11 5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
+        )}
+      </span>
+    )
+  }
+  <span><slot /></span>
+  {
+    icon && iconPosition === 'end' && (
+      <span class="mt-btn-ico">
+        {icon === 'arrow' ? (
+          <svg class="mt-btn-arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" /></svg>
+        ) : (
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 11L11 5M11 5H6M11 5V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
+        )}
+      </span>
+    )
+  }
+</Tag>

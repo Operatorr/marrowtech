@@ -1,0 +1,235 @@
+/* ============================================================
+   marrowtech — DESIGN TOKENS
+   Ported from design_system/tokens/* (colors · typography ·
+   spacing · motion). Author UI against the semantic aliases.
+   ============================================================ */
+
+:root {
+  /* ---- Ink scale — the dark canvas. Slightly cool charcoal,
+         never pure black, so blue/violet glow reads warm. ---- */
+  --ink-1000: #060708;
+  --ink-950:  #0a0b0e;
+  --ink-900:  #0d0f13;   /* page background */
+  --ink-850:  #111319;   /* base surface */
+  --ink-800:  #161922;   /* card */
+  --ink-750:  #1c1f2a;   /* elevated card */
+  --ink-700:  #232734;   /* hover surface */
+  --ink-600:  #2e3340;   /* hairline-strong / pressed */
+  --ink-500:  #3c4250;   /* disabled fill */
+  --ink-400:  #565d6e;   /* faint icon */
+
+  /* ---- Bone / paper — warm Scandinavian neutrals ---- */
+  --bone-50:   #faf7f1;
+  --bone-100:  #f3efe7;  /* primary text on ink · paper surface */
+  --bone-200:  #e7e1d4;
+  --bone-300:  #d4ccba;
+  --bone-400:  #b3ab99;
+
+  /* ---- Cool neutral greys for muted UI text on ink ---- */
+  --slate-300: #aeb2bd;
+  --slate-400: #8b909d;  /* secondary text */
+  --slate-500: #646a78;  /* muted / meta text */
+  --slate-600: #474d5b;  /* faint label */
+
+  /* ---- Accent: electric blue (primary) ---- */
+  --blue-700:  #2a18b1;
+  --blue-600:  #2a11e6;
+  --blue-500:  #290cff;  /* primary accent */
+  --blue-400:  #4830ff;  /* hover */
+  --blue-300:  #715eff;  /* on dark, soft */
+  --blue-glow: rgba(41, 12, 255, 0.45);
+
+  /* ---- Accent: violet (secondary) ---- */
+  --violet-600: #5d3fe6;
+  --violet-500: #7b5cff;  /* secondary accent */
+  --violet-400: #9a82ff;  /* hover */
+  --violet-300: #bbaaff;
+  --violet-glow: rgba(123, 92, 255, 0.40);
+
+  /* ---- Signal: ember — RARE. Reserved for the game (Ashen
+         Omega) + destructive/alert. Use sparingly. ---- */
+  --ember-500: #ff5a36;
+  --ember-400: #ff7a5c;
+
+  /* ---- Functional ---- */
+  --green-500: #34d399;  /* "Live" status */
+  --amber-500: #f5b945;  /* "In dev" status */
+
+  /* ============================================================
+     SEMANTIC ALIASES — author UI against these.
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-bg:        var(--ink-900);
+  --surface-base:      var(--ink-850);
+  --surface-card:      var(--ink-800);
+  --surface-elevated:  var(--ink-750);
+  --surface-hover:     var(--ink-700);
+  --surface-pressed:   var(--ink-600);
+  --surface-inverse:   var(--bone-100);   /* light section */
+
+  /* Text on ink */
+  --text-primary:     var(--bone-100);
+  --text-secondary:   var(--slate-300);
+  --text-muted:       var(--slate-500);
+  --text-faint:       var(--slate-600);
+  --text-inverse:     var(--ink-900);     /* text on paper */
+  --text-accent:      var(--blue-400);
+
+  /* Borders / hairlines */
+  --border-subtle:   rgba(243, 239, 231, 0.07);
+  --border-default:  rgba(243, 239, 231, 0.12);
+  --border-strong:   rgba(243, 239, 231, 0.20);
+  --border-accent:   var(--blue-500);
+
+  /* Accents */
+  --accent:          var(--blue-500);
+  --accent-hover:    var(--blue-400);
+  --accent-2:        var(--violet-500);
+  --accent-2-hover:  var(--violet-400);
+  --accent-contrast: var(--bone-50);
+
+  /* Status */
+  --status-live:  var(--green-500);
+  --status-dev:   var(--amber-500);
+  --status-idea:  var(--slate-400);
+
+  /* Selection */
+  --selection-bg: var(--blue-500);
+  --selection-fg: var(--bone-50);
+
+  /* ============================================================
+     TYPOGRAPHY
+     ============================================================ */
+
+  /* ---- Families ---- */
+  --font-display: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-sans:    "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
+  --font-jp:      "IBM Plex Sans JP", "IBM Plex Sans", sans-serif;
+
+  /* ---- Weights ---- */
+  --weight-light:    300;
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* ---- Fluid display sizes (clamp: min, vw, max) ---- */
+  --text-mega:   clamp(3.5rem, 9.5vw, 5rem);     /* hero */
+  --text-xxl:    clamp(2.75rem, 6vw, 5rem);
+  --text-xl:     clamp(2rem, 4vw, 3.25rem);
+  --text-lg:     clamp(1.5rem, 2.4vw, 2.25rem);
+  --text-h:      1.5rem;     /* 24 */
+  --text-lead:   1.25rem;    /* 20 */
+  --text-body:   1.0625rem;  /* 17 */
+  --text-sm:     0.9375rem;  /* 15 */
+  --text-xs:     0.8125rem;  /* 13 */
+  --text-2xs:    0.6875rem;  /* 11 — mono labels */
+
+  /* ---- Line heights ---- */
+  --leading-none:    1;
+  --leading-tight:   1.05;   /* display */
+  --leading-snug:    1.18;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* ---- Letter spacing ---- */
+  --tracking-tighter: -0.04em;  /* mega display */
+  --tracking-tight:   -0.02em;  /* headings */
+  --tracking-normal:  -0.01em;
+  --tracking-wide:    0.04em;
+  --tracking-label:   0.16em;   /* mono kicker labels, UPPERCASE */
+  --tracking-kana:    0.30em;   /* spaced kana runs */
+
+  /* ============================================================
+     SPACING · RADII · SHADOWS · LAYOUT (8px base grid)
+     ============================================================ */
+
+  --space-0:   0;
+  --space-1:   0.25rem;  /* 4  */
+  --space-2:   0.5rem;   /* 8  */
+  --space-3:   0.75rem;  /* 12 */
+  --space-4:   1rem;     /* 16 */
+  --space-5:   1.5rem;   /* 24 */
+  --space-6:   2rem;     /* 32 */
+  --space-7:   3rem;     /* 48 */
+  --space-8:   4rem;     /* 64 */
+  --space-9:   6rem;     /* 96 */
+  --space-10:  8rem;     /* 128 */
+  --space-11:  12rem;    /* 192 */
+
+  /* ---- Radii — squared. The brand is hard-edged: nothing rounds.
+         (Dots/avatars use literal 50% where a circle is intended.) ---- */
+  --radius-none: 0;
+  --radius-xs:   0;
+  --radius-sm:   0;
+  --radius-md:   0;
+  --radius-lg:   0;
+  --radius-xl:   0;
+  --radius-pill: 0;
+
+  /* ---- Borders ---- */
+  --border-hairline: 1px;
+  --border-thick:    1.5px;
+
+  /* ---- Shadows — on ink, "shadow" is mostly glow + lift. ---- */
+  --shadow-sm:   0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:   0 6px 20px rgba(0,0,0,0.45);
+  --shadow-lg:   0 18px 50px rgba(0,0,0,0.55);
+  --shadow-glow-blue:   0 0 0 1px rgba(41,12,255,0.35), 0 8px 40px var(--blue-glow);
+  --shadow-glow-violet: 0 0 0 1px rgba(123,92,255,0.30), 0 8px 40px var(--violet-glow);
+  --shadow-inset-top: inset 0 1px 0 rgba(243,239,231,0.06);
+
+  /* ---- Focus ring ---- */
+  --ring: 0 0 0 2px var(--ink-900), 0 0 0 4px var(--blue-500);
+
+  /* ---- Layout ---- */
+  --container:      1280px;
+  --container-wide: 1480px;
+  --container-text: 720px;
+  --gutter:         clamp(1.25rem, 4vw, 4rem);
+  --header-h:       72px;
+
+  /* ============================================================
+     MOTION
+     ============================================================ */
+
+  --dur-instant: 80ms;
+  --dur-fast:    160ms;
+  --dur-base:    240ms;
+  --dur-slow:    420ms;
+  --dur-slower:  680ms;
+
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in:     cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-snap:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-linear: linear;
+
+  --caret-blink:   1s;
+  --stream-char:   18ms;
+  --hover-lift:    var(--dur-fast) var(--ease-out);
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+/* Terminal caret — the brand's heartbeat */
+@keyframes mt-caret {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Subtle entrance — rise + fade. */
+@keyframes mt-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mt-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

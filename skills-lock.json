@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "code-review": {
+      "source": "Operatorr/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/code-review/SKILL.md",
+      "computedHash": "a96ca490adfe95a4696f7f8fb5b0e0696673679a91ce8ff295bd2dd0a5378891"
+    },
+    "deep-review": {
+      "source": "Operatorr/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/deep-review/SKILL.md",
+      "computedHash": "77aaa17509204cd0375417116d8febf22903c5272c82de238437235f228ad5cb"
+    },
+    "git-commit": {
+      "source": "Operatorr/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/git-commit/SKILL.md",
+      "computedHash": "7eded8a9c76dbce8d1c7aa33448c1ef206d4648bbc2e222f4118190d692029a6"
+    },
+    "git-pr": {
+      "source": "Operatorr/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/git-pr/SKILL.md",
+      "computedHash": "90f974b51f259f1e2554aff4f8bc7f8139af561d55c5324a9cc3115e6b82e213"
+    }
+  }
+}

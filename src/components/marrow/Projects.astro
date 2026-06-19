@@ -1,0 +1,82 @@
+---
+/* marrowtech — the showcase grid (ported from design_system hub/Projects.jsx).
+   Four projects; Ashen Omega uses a live ASCII field in ember. */
+import SectionMarker from './SectionMarker.astro';
+import ProjectCard from './ProjectCard.astro';
+---
+
+<section class="hub-section" id="work">
+  <div class="hub-section-head">
+    <SectionMarker index="01" label="Work" kana="作品" />
+    <p class="hub-section-lead">
+      Four things I've built and maintain — from idea to production. Click to visit.
+    </p>
+  </div>
+
+  <div class="hub-grid">
+    <ProjectCard
+      index="01"
+      name="DoMarrow"
+      kana="管理"
+      status="live"
+      domain="domarrow.app"
+      href="https://domarrow.app"
+      tone="blue"
+      glyph="管"
+      description="Project management for small teams: boards, sprints, and not much else."
+      tags={['TypeScript', 'React', 'Node', 'Postgres']}
+    />
+
+    <ProjectCard
+      index="02"
+      name="MarrowTalk"
+      kana="自由"
+      status="dev"
+      domain="marrowtalk.com"
+      href="https://marrowtalk.com"
+      tone="violet"
+      glyph="声"
+      description="A social network with end-to-end encryption and no moderation. You hold the keys."
+      tags={['E2E-crypto', 'React', 'Go', 'WebSocket']}
+    />
+
+    <ProjectCard
+      index="03"
+      name="Ashen Omega"
+      kana="残光"
+      status="dev"
+      domain="omega.marrowtech.app"
+      href="https://omega.marrowtech.app"
+      tone="ember"
+      mediaHeight={156}
+      description="Real-time multiplayer. A Godot client, a server core in Rust and a Go API gluing it all together."
+      tags={['Godot', 'Rust', 'Go', 'Multiplayer']}
+    >
+      <div
+        slot="media"
+        data-ascii
+        data-accent="#ff5a36"
+        data-color="#5c4a44"
+        data-background="#0b0a0a"
+        data-cell-size="12"
+        data-scale="0.1"
+        data-speed="1.1"
+      >
+      </div>
+    </ProjectCard>
+
+    <ProjectCard
+      index="04"
+      name="widing.dev"
+      kana="履歴"
+      status="live"
+      domain="widing.dev"
+      href="https://widing.dev"
+      tone="blue"
+      glyph="履"
+      cta="Read CV"
+      description="My résumé: experience, tech stack, and how I got here."
+      tags={['CV', 'About', 'Contact']}
+    />
+  </div>
+</section>

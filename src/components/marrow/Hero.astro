@@ -1,0 +1,71 @@
+---
+/* marrowtech — hero (ported from design_system hub/Hero.jsx).
+   Streaming display headline over the interactive WebGL dither field,
+   with a terminal readout. */
+import Button from './Button.astro';
+import Terminal from './Terminal.astro';
+import { CV_URL } from '../../consts';
+---
+
+<section class="hub-hero" id="top">
+  <div
+    class="hub-hero-bg"
+    data-dither
+    data-color-a="#0b0d11"
+    data-color-b="#39426b"
+    data-accent="#2a11e6"
+    data-pixel-size="5"
+    data-scale="2.7"
+    data-speed="0.85"
+    data-mouse-radius="210"
+  >
+  </div>
+  <div class="hub-hero-veil"></div>
+  <span class="hub-hero-kana" aria-hidden="true">マロウテック</span>
+
+  <div class="hub-hero-shell">
+  <div class="hub-hero-inner">
+    <div class="hub-hero-kicker">
+      <span class="dot"></span>
+      <span>Stockholm · SE</span>
+      <span class="sep">/</span>
+      <span class="jp">ストックホルム</span>
+    </div>
+
+    <h1 class="hub-hero-title" data-hero-title>
+      <span class="ln" data-line="The things I build to" data-delay="450" data-speed="46"></span>
+      <span class="ln accent" data-line="challenge myself" data-delay="1450" data-speed="46"></span>
+    </h1>
+
+    <p class="hub-hero-sub">
+      Alexander Widing, full-stack enginner (IC5) and game developer from Stockholm.
+      This is where /some/ things I build lives. Applications, message encryption, and game netcode.
+    </p>
+
+    <div class="hub-hero-cta">
+      <Button variant="primary" icon="arrow" href="#work">See the work</Button>
+      <Button variant="secondary" href={CV_URL} target="_blank" rel="noopener">Read CV</Button>
+    </div>
+
+    <div class="hub-hero-term">
+      <Terminal
+        title="alexander@marrowtech ~ %"
+        speed={10}
+        startDelay={1900}
+        lines={[
+          { kind: 'cmd', text: 'whoami' },
+          { kind: 'ok', text: 'Alexander Widing — full-stack & game dev · Stockholm' },
+          { kind: 'cmd', text: 'ls ./work' },
+          { kind: 'dim', text: 'domarrow/  marrowtalk/  ashen-omega/  widing.dev/' },
+          { kind: 'cmd', text: './work --enter' },
+        ]}
+      />
+    </div>
+  </div>
+  </div>
+
+  <a class="hub-hero-scroll" href="#work">
+    <span>Scroll</span>
+    <svg width="14" height="22" viewBox="0 0 14 22" fill="none"><path d="M7 1v18M2 14l5 5 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"></path></svg>
+  </a>
+</section>

@@ -1,0 +1,68 @@
+---
+/* marrowtech — PostCard. A blog tile in the design-system idiom
+   (squared, hairline border, glow + lift on hover). The media slot is a
+   live ASCII shader field — same effect as the Ashen Omega work card —
+   tinted blue or violet. */
+
+interface Props {
+  title: string;
+  description?: string;
+  href: string;
+  pubDate: Date;
+  tag?: string;
+  feature?: boolean;
+  tone?: 'blue' | 'violet';
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  href,
+  pubDate,
+  tag = 'Journal',
+  feature = false,
+  tone = 'blue',
+  class: className = '',
+} = Astro.props;
+
+const cls = ['mt-post', feature ? 'is-feature' : '', className].filter(Boolean).join(' ');
+const dateStr = pubDate.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' });
+
+const ascii =
+  tone === 'violet'
+    ? { accent: '#7b5cff', color: '#322a44', background: '#0a0a0e' }
+    : { accent: '#290cff', color: '#2a3140', background: '#0a0b0e' };
+const cellSize = feature ? 16 : 13;
+const speed = feature ? 0.7 : 0.6;
+---
+
+<a href={href} class={cls}>
+  <div class="mt-post-media">
+    <div
+      data-ascii
+      data-accent={ascii.accent}
+      data-color={ascii.color}
+      data-background={ascii.background}
+      data-cell-size={String(cellSize)}
+      data-scale="0.08"
+      data-speed={String(speed)}
+    >
+    </div>
+  </div>
+  <div class="mt-post-body">
+    <div class="mt-post-meta">
+      <span class="mt-post-tagword">{tag}</span>
+      <span>·</span>
+      <time datetime={pubDate.toISOString()}>{dateStr}</time>
+    </div>
+    <h3 class="mt-post-title">{title}</h3>
+    {description && <p class="mt-post-desc">{description}</p>}
+    <div class="mt-post-foot">
+      <span class="mt-post-go">
+        Read
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" /></svg>
+      </span>
+    </div>
+  </div>
+</a>

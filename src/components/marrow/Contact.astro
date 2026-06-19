@@ -1,0 +1,43 @@
+---
+/* marrowtech — contact + footer over an ASCII field
+   (ported from design_system hub/Contact.jsx). Shared site footer. */
+import SectionMarker from './SectionMarker.astro';
+import Button from './Button.astro';
+import { AUTHOR, LOCATION, CONTACT_EMAIL, CV_URL, GITHUB_URL, LINKEDIN_URL, X_URL } from '../../consts';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="hub-contact" id="contact">
+  <div
+    class="hub-contact-bg"
+    data-ascii
+    data-accent="#290cff"
+    data-color="#2a3140"
+    data-background="#0a0b0e"
+    data-cell-size="15"
+    data-scale="0.07"
+    data-speed="0.7"
+  >
+  </div>
+  <div class="hub-contact-veil"></div>
+
+  <div class="hub-contact-inner">
+    <SectionMarker label="Contact" kana="連絡" rule={false} />
+    <h2 class="hub-contact-title">Got a problem worth solving?</h2>
+    <a class="hub-contact-mail" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+
+    <div class="hub-contact-links">
+      <Button variant="secondary" href={CV_URL} target="_blank" rel="noopener">widing.dev</Button>
+      <Button variant="ghost" href={GITHUB_URL} target="_blank" rel="noopener">GitHub</Button>
+      <Button variant="ghost" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn</Button>
+      <Button variant="ghost" href={X_URL} target="_blank" rel="noopener">X</Button>
+    </div>
+  </div>
+
+  <div class="hub-foot">
+    <span class="hub-foot-word">骨 marrowtech</span>
+    <span class="hub-foot-meta">© {year} {AUTHOR} · {LOCATION}</span>
+    <span class="hub-foot-meta jp">作品集</span>
+  </div>
+</footer>

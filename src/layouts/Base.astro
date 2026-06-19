@@ -1,0 +1,36 @@
+---
+/* Base site shell: head + fixed nav + page content + shared contact footer.
+   Loads the design-system client scripts (shaders, terminal, hub behaviors). */
+import BaseHead from '../components/BaseHead.astro';
+import Nav from '../components/marrow/Nav.astro';
+import Contact from '../components/marrow/Contact.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  footer?: boolean;
+}
+
+const { title = SITE_TITLE, description = SITE_DESCRIPTION, footer = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="hub">
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    {footer && <Contact />}
+
+    <script>
+      import '../scripts/hub.ts';
+      import '../scripts/terminal.ts';
+      import '../scripts/shaders.ts';
+    </script>
+  </body>
+</html>
