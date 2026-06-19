@@ -132,16 +132,157 @@ a.mt-pcard:focus-visible{ outline:none; box-shadow:var(--ring); }
 .mt-pcard-violet{ --_glow:var(--violet-glow); --_edge:rgba(123,92,255,.5); }
 .mt-pcard-ember{ --_glow:rgba(255,90,54,.32); --_edge:rgba(255,90,54,.5); }
 
+/* ---- "paper" variant — mirrors domarrow.app's brand: warm cream
+        canvas, terracotta accent, Crimson Pro display + Manrope text,
+        and the soft rounded edges of the live product. ---- */
+.mt-pcard-paper{
+  --_p-bg:     #fdfbf9;   /* warm paper surface  */
+  --_p-bg-2:   #f5f0eb;   /* deeper paper        */
+  --_p-ink:    #2c2825;   /* warm near-black ink */
+  --_p-body:   #6e655c;   /* body copy           */
+  --_p-muted:  #887a6e;   /* meta / labels       */
+  --_p-line:   #e8e1d9;   /* hairline            */
+  --_p-accent: #d4644a;   /* terracotta          */
+  --_p-accent-strong: #b84e36;
+  font-family: "Manrope", system-ui, sans-serif;
+  background: var(--_p-bg);
+  border-color: var(--_p-line);
+  border-radius: 14px;
+  box-shadow: 0 8px 18px #2c282514;
+}
+/* the card background — a terracotta top-glow on cream, like the live hero.
+   Always visible (not just on hover) so the card reads as the product. */
+.mt-pcard-paper::before{
+  opacity: 1;
+  background: radial-gradient(120% 78% at 50% -14%, #d4644a33 0%, #d4644a14 36%, transparent 70%);
+}
+a.mt-pcard-paper:hover{
+  border-color: #dcab9a; background: var(--_p-bg);
+  transform: translateY(-3px); box-shadow: 0 20px 45px -24px #2c282573;
+}
+a.mt-pcard-paper:focus-visible{ box-shadow: 0 0 0 2px var(--_p-bg), 0 0 0 4px var(--_p-accent); }
+
+.mt-pcard-paper .mt-pcard-idx{ font-family:"Manrope",sans-serif; color:#b8a898; font-weight:600; }
+.mt-pcard-paper .mt-pcard-media{
+  background:var(--_p-bg-2); border-bottom-color:var(--_p-line);
+}
+.mt-pcard-paper .mt-pcard-media-glyph{ color:var(--_p-accent); opacity:.20; }
+.mt-pcard-paper .mt-pcard-title{
+  font-family:"Crimson Pro", Georgia, serif; font-weight:600; color:var(--_p-ink);
+}
+.mt-pcard-paper .mt-pcard-kana{ color:#c4b7a8; }
+.mt-pcard-paper .mt-pcard-desc{ color:var(--_p-body); }
+.mt-pcard-paper .mt-pcard-tag{
+  font-family:"Manrope",sans-serif; text-transform:none; letter-spacing:0;
+  color:var(--_p-muted); background:#f4eee7; border-color:var(--_p-line); border-radius:6px;
+}
+.mt-pcard-paper .mt-pcard-domain{ font-family:"Manrope",sans-serif; color:var(--_p-muted); }
+.mt-pcard-paper .mt-pcard-go{
+  font-family:"Manrope",sans-serif; letter-spacing:0; font-weight:600; color:var(--_p-accent-strong);
+}
+.mt-pcard-paper .mt-st-live{ color:#5e7d62; }
+.mt-pcard-paper .mt-st-live .dot{ background:#7a9b7e; }
+
+/* ---- "forest" variant — mirrors widing.dev: near-black green canvas,
+        moss-green hairlines + glow, a breath of neon purple, and a
+        Cormorant Garamond display over Plus Jakarta Sans. ---- */
+.mt-pcard-forest{
+  --_f-moss:   #4ade80;   /* moss-green accent   */
+  --_f-purple: #c084fc;   /* neon-purple accent  */
+  --_f-text:   #eef5ee;   /* near-white text     */
+  --_f-body:   #9db59d;   /* muted green-grey    */
+  --_f-glow:   rgba(74,222,128,.22);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  background: #0a0f0a;
+  border-color: rgba(74,222,128,.14);
+}
+/* moss-green wash top-right with a faint purple bloom bottom-left,
+   echoing the live hero. Always on so the card reads as the product. */
+.mt-pcard-forest::before{
+  opacity: 1;
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(74,222,128,.20) 0%, transparent 55%),
+    radial-gradient(90% 70% at 0% 100%, rgba(192,132,252,.12) 0%, transparent 60%);
+}
+a.mt-pcard-forest:hover{
+  border-color: rgba(74,222,128,.42); transform: translateY(-3px);
+  background: #0d140d; box-shadow: 0 18px 50px rgba(0,0,0,.55), 0 0 40px rgba(192,132,252,.12);
+}
+a.mt-pcard-forest:focus-visible{ box-shadow: 0 0 0 2px #0a0f0a, 0 0 0 4px var(--_f-moss); }
+
+.mt-pcard-forest .mt-pcard-idx{ color:rgba(74,222,128,.45); }
+.mt-pcard-forest .mt-pcard-media{ background:#070b07; border-bottom-color:rgba(74,222,128,.12); }
+.mt-pcard-forest .mt-pcard-media-glyph{ color:var(--_f-moss); opacity:.16; }
+.mt-pcard-forest .mt-pcard-title{
+  font-family:"Cormorant Garamond", Georgia, serif; font-weight:600; letter-spacing:0; color:var(--_f-text);
+}
+.mt-pcard-forest .mt-pcard-kana{ color:rgba(74,222,128,.40); }
+.mt-pcard-forest .mt-pcard-desc{ color:var(--_f-body); }
+.mt-pcard-forest .mt-pcard-tag{
+  color:#8fb38f; border-color:rgba(74,222,128,.22); background:rgba(74,222,128,.05);
+}
+.mt-pcard-forest .mt-pcard-domain{ color:#789578; }
+.mt-pcard-forest .mt-pcard-go{ color:var(--_f-moss); }
+.mt-pcard-forest .mt-st-live{ color:var(--_f-moss); }
+.mt-pcard-forest .mt-st-live .dot{ background:var(--_f-moss); }
+
+/* ---- "obsidian" variant — mirrors omega.marrowtech.app (Omega Realm):
+        grimdark void canvas, blood-red + eldritch-purple glow, engraved
+        Cinzel display over Rajdhani, bone-parchment text. ---- */
+.mt-pcard-obsidian{
+  --_o-void:    #050706;   /* obsidian base       */
+  --_o-blood:   #8a261f;   /* blood-red primary   */
+  --_o-eldritch:#5b3a8e;   /* eldritch purple     */
+  --_o-bone:    #d8d0bc;   /* parchment text      */
+  --_o-gold:    #c69a2e;   /* brass / "in dev"    */
+  font-family: "Rajdhani", system-ui, sans-serif;
+  background: #0b0e0d;
+  border-color: rgba(216,208,188,.10);
+}
+/* blood-red wash from the top, eldritch-purple bloom bottom-right —
+   the void's glow. Always on so the card reads as the game. */
+.mt-pcard-obsidian::before{
+  opacity: 1;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(138,38,31,.24) 0%, transparent 55%),
+    radial-gradient(90% 70% at 100% 100%, rgba(91,58,142,.18) 0%, transparent 60%);
+}
+a.mt-pcard-obsidian:hover{
+  border-color: rgba(138,38,31,.5); transform: translateY(-3px);
+  background: #0d100f; box-shadow: 0 18px 50px rgba(0,0,0,.6), 0 0 40px rgba(138,38,31,.16);
+}
+a.mt-pcard-obsidian:focus-visible{ box-shadow: 0 0 0 2px #050706, 0 0 0 4px var(--_o-blood); }
+
+.mt-pcard-obsidian .mt-pcard-idx{ color:rgba(216,208,188,.40); }
+.mt-pcard-obsidian .mt-pcard-media{ background:#050706; border-bottom-color:rgba(216,208,188,.08); }
+.mt-pcard-obsidian .mt-pcard-media-glyph{ color:var(--_o-blood); opacity:.30; }
+.mt-pcard-obsidian .mt-pcard-title{
+  font-family:"Cinzel", Georgia, serif; font-weight:600; text-transform:uppercase;
+  letter-spacing:.04em; color:var(--_o-bone);
+}
+.mt-pcard-obsidian .mt-pcard-kana{ color:rgba(216,208,188,.34); }
+.mt-pcard-obsidian .mt-pcard-desc{ color:#9a9382; }
+.mt-pcard-obsidian .mt-pcard-tag{
+  color:#b0a892; border-color:rgba(138,38,31,.34); background:rgba(138,38,31,.07);
+}
+.mt-pcard-obsidian .mt-pcard-domain{ color:#857e6f; }
+.mt-pcard-obsidian .mt-pcard-go{ color:#d14a3d; font-weight:600; letter-spacing:.04em; }
+.mt-pcard-obsidian .mt-st-dev{ color:var(--_o-gold); }
+.mt-pcard-obsidian .mt-st-dev .dot{ background:var(--_o-gold); }
+
 .mt-pcard-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
 .mt-pcard-idx{ font-family:var(--font-mono); font-size:var(--text-2xs); letter-spacing:.14em;
   color:var(--text-faint); }
 
 .mt-pcard-media{
-  position:relative; height:var(--_mh,148px); margin:-22px -22px 18px; overflow:hidden;
+  position:relative; height:var(--_mh,184px); margin:-22px -22px 18px; overflow:hidden;
   border-bottom:1px solid var(--border-subtle); background:var(--ink-950);
 }
 .mt-pcard-media > *{ position:absolute; inset:0; width:100%; height:100%; }
 .mt-pcard-media img{ object-fit:cover; }
+/* Auto-generated site screenshot — layered above the glyph fallback,
+   anchored to the top so the page header is what shows. */
+.mt-pcard-shot{ z-index:1; object-fit:cover; object-position:top center; animation:mt-fade var(--dur-slow) var(--ease-out); }
 .mt-pcard-media-glyph{ display:flex; align-items:center; justify-content:center;
   font-family:var(--font-jp); font-size:64px; color:var(--text-faint); opacity:.5; letter-spacing:.1em; }
 

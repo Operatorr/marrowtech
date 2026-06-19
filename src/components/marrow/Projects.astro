@@ -21,8 +21,9 @@ import ProjectCard from './ProjectCard.astro';
       status="live"
       domain="domarrow.app"
       href="https://domarrow.app"
-      tone="blue"
+      tone="paper"
       glyph="管"
+      preview="https://domarrow.app"
       description="Project management for small teams: boards, sprints, and not much else."
       tags={['TypeScript', 'React', 'Node', 'Postgres']}
     />
@@ -35,29 +36,15 @@ import ProjectCard from './ProjectCard.astro';
       domain="marrowtalk.com"
       href="https://marrowtalk.com"
       tone="violet"
-      glyph="声"
       description="A social network with end-to-end encryption and no moderation. You hold the keys."
       tags={['E2E-crypto', 'React', 'Go', 'WebSocket']}
-    />
-
-    <ProjectCard
-      index="03"
-      name="Ashen Omega"
-      kana="残光"
-      status="dev"
-      domain="omega.marrowtech.app"
-      href="https://omega.marrowtech.app"
-      tone="ember"
-      mediaHeight={156}
-      description="Real-time multiplayer. A Godot client, a server core in Rust and a Go API gluing it all together."
-      tags={['Godot', 'Rust', 'Go', 'Multiplayer']}
     >
       <div
         slot="media"
         data-ascii
-        data-accent="#ff5a36"
-        data-color="#5c4a44"
-        data-background="#0b0a0a"
+        data-accent="#7b5cff"
+        data-color="#2e2b45"
+        data-background="#0a0b0e"
         data-cell-size="12"
         data-scale="0.1"
         data-speed="1.1"
@@ -66,14 +53,29 @@ import ProjectCard from './ProjectCard.astro';
     </ProjectCard>
 
     <ProjectCard
+      index="03"
+      name="Ashen Omega"
+      kana="残光"
+      status="dev"
+      domain="omega.marrowtech.app"
+      href="https://omega.marrowtech.app"
+      tone="obsidian"
+      glyph="残"
+      preview="https://omega.marrowtech.app"
+      description="Real-time multiplayer. A Godot client, a server core in Rust and a Go API gluing it all together."
+      tags={['Godot', 'Rust', 'Go', 'Multiplayer']}
+    />
+
+    <ProjectCard
       index="04"
       name="widing.dev"
       kana="履歴"
       status="live"
       domain="widing.dev"
       href="https://widing.dev"
-      tone="blue"
+      tone="forest"
       glyph="履"
+      preview="https://widing.dev"
       cta="Read CV"
       description="My résumé: experience, tech stack, and how I got here."
       tags={['CV', 'About', 'Contact']}

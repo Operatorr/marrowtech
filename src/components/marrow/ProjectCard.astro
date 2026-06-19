@@ -11,8 +11,11 @@ interface Props {
   status?: 'live' | 'dev' | 'idea';
   domain?: string;
   href?: string;
-  tone?: 'blue' | 'violet' | 'ember';
+  tone?: 'blue' | 'violet' | 'ember' | 'paper' | 'forest' | 'obsidian';
   glyph?: string;
+  /* URL to auto-screenshot for the media area (via Microlink). Falls back
+     to `glyph` if the capture fails to load. */
+  preview?: string;
   mediaHeight?: number;
   cta?: string;
   class?: string;
@@ -29,6 +32,7 @@ const {
   href = '#',
   tone = 'blue',
   glyph,
+  preview,
   mediaHeight,
   cta = 'Visit',
   class: className = '',
@@ -36,13 +40,22 @@ const {
 
 const STATUS_LABEL = { live: 'Live', dev: 'In dev', idea: 'Concept' } as const;
 
-const cls = ['mt-pcard', tone === 'violet' ? 'mt-pcard-violet' : tone === 'ember' ? 'mt-pcard-ember' : '', className]
+const TONE_CLASS = { violet: 'mt-pcard-violet', ember: 'mt-pcard-ember', paper: 'mt-pcard-paper', forest: 'mt-pcard-forest', obsidian: 'mt-pcard-obsidian' } as const;
+const cls = ['mt-pcard', TONE_CLASS[tone as keyof typeof TONE_CLASS] ?? '', className]
   .filter(Boolean)
   .join(' ');
 
 const hasMediaSlot = Astro.slots.has('media');
 const isExternal = href.startsWith('http');
 const style = mediaHeight ? `--_mh:${mediaHeight}px` : undefined;
+
+/* Microlink: render `preview` (a site URL) to a screenshot image on the fly.
+   `embed=screenshot.url` makes the endpoint serve the PNG directly. */
+const shotUrl = preview
+  ? `https://api.microlink.io/?url=${encodeURIComponent(preview)}` +
+    '&screenshot=true&meta=false&embed=screenshot.url' +
+    '&viewport.width=1280&viewport.height=800&viewport.deviceScaleFactor=2'
+  : undefined;
 ---
 
 <a
@@ -54,6 +67,18 @@ const style = mediaHeight ? `--_mh:${mediaHeight}px` : undefined;
   {
     hasMediaSlot ? (
       <div class="mt-pcard-media"><slot name="media" /></div>
+    ) : shotUrl ? (
+      <div class="mt-pcard-media">
+        {glyph && <div class="mt-pcard-media-glyph">{glyph}</div>}
+        <img
+          class="mt-pcard-shot"
+          src={shotUrl}
+          alt={`Screenshot of ${name}`}
+          loading="lazy"
+          decoding="async"
+          onerror="this.remove()"
+        />
+      </div>
     ) : glyph ? (
       <div class="mt-pcard-media"><div class="mt-pcard-media-glyph">{glyph}</div></div>
     ) : null
