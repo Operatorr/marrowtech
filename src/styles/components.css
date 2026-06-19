@@ -147,7 +147,6 @@ a.mt-pcard:focus-visible{ outline:none; box-shadow:var(--ring); }
   font-family: "Manrope", system-ui, sans-serif;
   background: var(--_p-bg);
   border-color: var(--_p-line);
-  border-radius: 14px;
   box-shadow: 0 8px 18px #2c282514;
 }
 /* the card background — a terracotta top-glow on cream, like the live hero.
@@ -174,7 +173,7 @@ a.mt-pcard-paper:focus-visible{ box-shadow: 0 0 0 2px var(--_p-bg), 0 0 0 4px va
 .mt-pcard-paper .mt-pcard-desc{ color:var(--_p-body); }
 .mt-pcard-paper .mt-pcard-tag{
   font-family:"Manrope",sans-serif; text-transform:none; letter-spacing:0;
-  color:var(--_p-muted); background:#f4eee7; border-color:var(--_p-line); border-radius:6px;
+  color:var(--_p-muted); background:#f4eee7; border-color:var(--_p-line);
 }
 .mt-pcard-paper .mt-pcard-domain{ font-family:"Manrope",sans-serif; color:var(--_p-muted); }
 .mt-pcard-paper .mt-pcard-go{
