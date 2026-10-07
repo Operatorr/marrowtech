@@ -11,11 +11,13 @@ interface Props {
   status?: 'live' | 'dev' | 'idea';
   domain?: string;
   href?: string;
-  tone?: 'blue' | 'violet' | 'ember' | 'paper' | 'forest' | 'obsidian';
+  tone?: 'blue' | 'violet' | 'ember' | 'paper' | 'talk' | 'ocean' | 'translate' | 'obsidian';
   glyph?: string;
   /* URL to auto-screenshot for the media area (via Microlink). Falls back
      to `glyph` if the capture fails to load. */
   preview?: string;
+  /* A saved screenshot takes precedence over the live capture. */
+  previewImage?: string;
   mediaHeight?: number;
   cta?: string;
   class?: string;
@@ -33,6 +35,7 @@ const {
   tone = 'blue',
   glyph,
   preview,
+  previewImage,
   mediaHeight,
   cta = 'Visit',
   class: className = '',
@@ -40,7 +43,7 @@ const {
 
 const STATUS_LABEL = { live: 'Live', dev: 'In dev', idea: 'Concept' } as const;
 
-const TONE_CLASS = { violet: 'mt-pcard-violet', ember: 'mt-pcard-ember', paper: 'mt-pcard-paper', forest: 'mt-pcard-forest', obsidian: 'mt-pcard-obsidian' } as const;
+const TONE_CLASS = { violet: 'mt-pcard-violet', ember: 'mt-pcard-ember', paper: 'mt-pcard-paper', talk: 'mt-pcard-talk', ocean: 'mt-pcard-ocean', translate: 'mt-pcard-translate', obsidian: 'mt-pcard-obsidian' } as const;
 const cls = ['mt-pcard', TONE_CLASS[tone as keyof typeof TONE_CLASS] ?? '', className]
   .filter(Boolean)
   .join(' ');
@@ -51,11 +54,11 @@ const style = mediaHeight ? `--_mh:${mediaHeight}px` : undefined;
 
 /* Microlink: render `preview` (a site URL) to a screenshot image on the fly.
    `embed=screenshot.url` makes the endpoint serve the PNG directly. */
-const shotUrl = preview
+const shotUrl = previewImage ?? (preview
   ? `https://api.microlink.io/?url=${encodeURIComponent(preview)}` +
     '&screenshot=true&meta=false&embed=screenshot.url' +
     '&viewport.width=1280&viewport.height=800&viewport.deviceScaleFactor=2'
-  : undefined;
+  : undefined);
 ---
 
 <a

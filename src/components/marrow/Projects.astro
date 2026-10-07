@@ -1,6 +1,6 @@
 ---
 /* marrowtech — the showcase grid (ported from design_system hub/Projects.jsx).
-   Four projects; Ashen Omega uses a live ASCII field in ember. */
+   Five projects, each styled to match its site. */
 import SectionMarker from './SectionMarker.astro';
 import ProjectCard from './ProjectCard.astro';
 ---
@@ -9,7 +9,7 @@ import ProjectCard from './ProjectCard.astro';
   <div class="hub-section-head">
     <SectionMarker index="01" label="Work" kana="作品" />
     <p class="hub-section-lead">
-      Four things I've built and maintain — from idea to production. Click to visit.
+      Five things I've built and maintain — from idea to production. Click to visit.
     </p>
   </div>
 
@@ -31,26 +31,16 @@ import ProjectCard from './ProjectCard.astro';
     <ProjectCard
       index="02"
       name="MarrowTalk"
-      kana="自由"
-      status="dev"
+      kana="交流"
+      status="live"
       domain="marrowtalk.com"
       href="https://marrowtalk.com"
-      tone="violet"
-      description="A social network with end-to-end encryption and no moderation. You hold the keys."
-      tags={['E2E-crypto', 'React', 'Go', 'WebSocket']}
-    >
-      <div
-        slot="media"
-        data-ascii
-        data-accent="#7b5cff"
-        data-color="#2e2b45"
-        data-background="#0a0b0e"
-        data-cell-size="12"
-        data-scale="0.1"
-        data-speed="1.1"
-      >
-      </div>
-    </ProjectCard>
+      tone="talk"
+      glyph="交"
+      previewImage="/previews/marrowtalk.webp"
+      description="A social space for short posts, community discussions, and real-time chat."
+      tags={['React', 'TanStack Start', 'Cloudflare', 'WebSocket']}
+    />
 
     <ProjectCard
       index="03"
@@ -73,12 +63,27 @@ import ProjectCard from './ProjectCard.astro';
       status="live"
       domain="widing.dev"
       href="https://widing.dev"
-      tone="forest"
+      tone="ocean"
       glyph="履"
-      preview="https://widing.dev"
+      previewImage="/previews/widing-dev.webp"
       cta="Read CV"
       description="My résumé: experience, tech stack, and how I got here."
       tags={['CV', 'About', 'Contact']}
+    />
+
+    <ProjectCard
+      index="05"
+      name="Vibe Translate"
+      kana="翻訳"
+      status="live"
+      domain="translate.marrowtech.app"
+      href="https://translate.marrowtech.app/"
+      tone="translate"
+      glyph="訳"
+      previewImage="/previews/vibe-translate.webp"
+      cta="Translate"
+      description="Translation with control over tone, dialect, and formality, plus explanations of words and grammar."
+      tags={['React', 'TypeScript', 'Cloudflare', 'AI']}
     />
   </div>
 </section>
