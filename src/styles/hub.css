@@ -240,7 +240,7 @@
 
 /* ---------------- BLOG POST (article / prose) ---------------- */
 .hub-article {
-  position: relative; max-width: var(--container-text); margin: 0 auto;
+  position: relative; max-width: var(--container); margin: 0 auto;
   padding: calc(var(--header-h) + clamp(40px, 8vh, 80px)) var(--gutter) clamp(64px, 11vh, 120px);
 }
 .hub-article-hero {
