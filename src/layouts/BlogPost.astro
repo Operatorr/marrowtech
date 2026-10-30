@@ -5,22 +5,10 @@ import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate } = Astro.props;
+const { title, description, pubDate, updatedDate, coverImage, coverAlt, coverCaption, workingDraft } = Astro.props;
 ---
 
-<Base title={title} description={description}>
-  <div class="hub-article-hero">
-    <div
-      data-ascii
-      data-accent="#7b5cff"
-      data-color="#322a44"
-      data-background="#0a0a0e"
-      data-cell-size="16"
-      data-scale="0.07"
-      data-speed="0.6"
-    >
-    </div>
-  </div>
+<Base title={title} description={description} image={coverImage} type="article">
   <article class="hub-article">
     <a class="hub-article-back" href="/blog">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path></svg>
@@ -29,6 +17,7 @@ const { title, description, pubDate, updatedDate } = Astro.props;
     <header class="hub-article-head">
       <div class="hub-article-meta">
         <FormattedDate date={pubDate} />
+        {workingDraft && <span class="hub-article-draft-label">Working draft</span>}
         {
           updatedDate && (
             <span class="upd">· updated <FormattedDate date={updatedDate} /></span>
@@ -36,7 +25,14 @@ const { title, description, pubDate, updatedDate } = Astro.props;
         }
       </div>
       <h1 class="hub-article-title">{title}</h1>
+      <p class="hub-article-description">{description}</p>
     </header>
+    {coverImage && (
+      <figure class="hub-article-cover">
+        <img src={coverImage} alt={coverAlt ?? ''} width="1672" height="941" fetchpriority="high" decoding="async" />
+        {coverCaption && <figcaption>{coverCaption}</figcaption>}
+      </figure>
+    )}
     <div class="mt-prose">
       <slot />
     </div>

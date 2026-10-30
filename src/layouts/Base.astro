@@ -10,15 +10,17 @@ interface Props {
   title?: string;
   description?: string;
   footer?: boolean;
+  image?: string;
+  type?: 'website' | 'article';
 }
 
-const { title = SITE_TITLE, description = SITE_DESCRIPTION, footer = true } = Astro.props;
+const { title = SITE_TITLE, description = SITE_DESCRIPTION, footer = true, image, type = 'website' } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} image={image} type={type} />
   </head>
   <body class="hub">
     <Nav />

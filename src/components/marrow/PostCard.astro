@@ -12,6 +12,8 @@ interface Props {
   tag?: string;
   feature?: boolean;
   tone?: 'blue' | 'violet';
+  coverImage?: string;
+  coverAlt?: string;
   class?: string;
 }
 
@@ -23,6 +25,8 @@ const {
   tag = 'Journal',
   feature = false,
   tone = 'blue',
+  coverImage,
+  coverAlt = '',
   class: className = '',
 } = Astro.props;
 
@@ -39,7 +43,9 @@ const speed = feature ? 0.7 : 0.6;
 
 <a href={href} class={cls}>
   <div class="mt-post-media">
-    <div
+    {coverImage ? (
+      <img src={coverImage} alt={coverAlt} width="1672" height="941" loading="lazy" decoding="async" />
+    ) : (<div
       data-ascii
       data-accent={ascii.accent}
       data-color={ascii.color}
@@ -48,7 +54,7 @@ const speed = feature ? 0.7 : 0.6;
       data-scale="0.08"
       data-speed={String(speed)}
     >
-    </div>
+    </div>)}
   </div>
   <div class="mt-post-body">
     <div class="mt-post-meta">

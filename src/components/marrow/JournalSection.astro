@@ -32,6 +32,8 @@ const { posts } = Astro.props;
           description={post.data.description}
           href={`/blog/${post.id}/`}
           pubDate={post.data.pubDate}
+          coverImage={post.data.coverImage}
+          coverAlt={post.data.coverAlt}
           tone={i % 2 === 0 ? 'blue' : 'violet'}
         />
       ))

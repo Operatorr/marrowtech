@@ -310,6 +310,37 @@
 .mt-prose th { color: var(--text-primary); font-family: var(--font-mono); font-size: var(--text-xs);
   letter-spacing: .08em; text-transform: uppercase; }
 
+/* Journal illustrations and long technical articles. */
+.mt-post-media > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hub-article { min-width: 0; }
+.hub-article-description { margin-top: 24px; font-size: var(--text-lead); line-height: var(--leading-relaxed); color: var(--text-secondary); }
+.hub-article-draft-label { color: var(--violet-300); }
+.hub-article-cover { margin: 0 0 44px; }
+.hub-article-cover img { display: block; width: 100%; height: auto; border: 1px solid var(--border-default); }
+.hub-article-cover figcaption, .mt-prose figcaption {
+  margin-top: 12px; color: var(--text-secondary); font-size: var(--text-xs); line-height: 1.7;
+}
+.hub-article .mt-prose { font-size: 18px; line-height: 1.8; overflow-wrap: anywhere; }
+.hub-article .mt-prose a { color: var(--violet-300); }
+.hub-article .mt-prose h2, .hub-article .mt-prose h3 { scroll-margin-top: calc(var(--header-h) + 28px); }
+.hub-article .mt-prose pre { max-width: 100%; overflow-wrap: normal; }
+.hub-article .mt-prose table { display: block; max-width: 100%; overflow-x: auto; overflow-wrap: normal; }
+.hub-article .mt-prose th, .hub-article .mt-prose td { min-width: 100px; }
+.hub-article .mt-prose blockquote { font-size: inherit; }
+.hub-article .mt-prose blockquote:has(img) { border: 0; padding: 0; }
+.article-figure { margin: 36px 0; }
+.article-figure > a { display: block; border: 0; }
+.article-figure img { display: block; height: auto; }
+.article-contents, .article-draft-note { padding: 20px; border: 1px solid var(--border-default); background: var(--surface-base); }
+.article-contents summary, .article-draft-note summary { cursor: pointer; color: var(--text-primary); font-family: var(--font-mono); font-size: var(--text-sm); }
+.article-contents ul { margin-top: 18px; }
+.article-contents li { font-size: var(--text-sm); }
+.article-draft-note blockquote { margin-bottom: 0; }
+@media (max-width: 620px) {
+  .hub-article .mt-prose { font-size: 16px; }
+  .article-contents, .article-draft-note { padding: 16px; }
+}
+
 /* ---------------- entrance reveals ---------------- */
 @media (prefers-reduced-motion: no-preference) {
   .reveal { opacity: 0; transform: translateY(16px); }

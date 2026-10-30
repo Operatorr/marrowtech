@@ -27,6 +27,8 @@ const description = 'Notes on what I build — engineering, tooling and the occa
             description={post.data.description}
             href={`/blog/${post.id}/`}
             pubDate={post.data.pubDate}
+            coverImage={post.data.coverImage}
+            coverAlt={post.data.coverAlt}
             tone={i % 2 === 0 ? 'blue' : 'violet'}
             feature={i === 0}
           />
