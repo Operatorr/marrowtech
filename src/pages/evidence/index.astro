@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionMarker from '../../components/marrow/SectionMarker.astro';
+import Verdict from '../../components/evidence/Verdict.astro';
+import { headlineLabel, loadSessions } from '../../lib/evidence';
+
+const sessions = (await loadSessions()).reverse();
+const description = 'Published results from the Omega Realm load tests on DigitalOcean, down to each run and gate.';
+---
+
+<Base title="Capacity evidence — marrowtech" description={description}>
+  <div class="hub-page">
+    <div class="hub-page-head">
+      <SectionMarker label="Evidence" kana="証拠" tone="violet" />
+      <h1 class="hub-page-title">Capacity evidence.</h1>
+      <p class="hub-page-lead">{description}</p>
+    </div>
+    <div class="mt-prose ev-page">
+      <p>
+        A DigitalOcean result is not a Hetzner CAX11 result, and an inconclusive run establishes nothing.
+        The story behind these tests is in the <a href="/blog/omega-load-testing">load-testing article</a>.
+      </p>
+      {sessions.length === 0 ? (
+        <p>No DigitalOcean session has been published yet.</p>
+      ) : (
+        <div class="ev-scroll">
+          <table>
+            <thead><tr><th>Session</th><th>Outcome</th><th>Search</th><th>Game host</th><th>Region</th><th>As of</th></tr></thead>
+            <tbody>
+              {sessions.map(({ id, data }) => (
+                <tr>
+                  <td><a href={`/evidence/${id}/`}><code>{id}</code></a></td>
+                  <td>{headlineLabel(data)}</td>
+                  <td><Verdict value={data.results.measurement.search_status} /></td>
+                  <td><code>{data.condition.game.size_slug}</code></td>
+                  <td><code>{data.condition.region}</code></td>
+                  <td>{data.as_of}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  </div>
+</Base>

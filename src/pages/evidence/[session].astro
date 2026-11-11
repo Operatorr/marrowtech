@@ -1,0 +1,188 @@
+---
+import Base from '../../layouts/Base.astro';
+import TrajectoryChart from '../../components/evidence/TrajectoryChart.astro';
+import Verdict from '../../components/evidence/Verdict.astro';
+import { fractionValue, gateRows, headlineLabel, loadSessions, show, type Session } from '../../lib/evidence';
+
+export async function getStaticPaths() {
+  const sessions = await loadSessions();
+  return sessions.map((session) => ({ params: { session: session.id }, props: session }));
+}
+type Props = Session;
+
+const { id, data, inventory } = Astro.props;
+const { results, condition, source, economics, gate_policy: policy, raw_evidence: raw } = data;
+const claim = results.measurement.claim;
+const nominal = economics.nominal_game_tier;
+const estimate = economics.session_estimate;
+const hosts = [['Game', condition.game], ['Bot', condition.bot]] as const;
+const costs = [['Game', estimate.hosts.game], ['Bot', estimate.hosts.bot]] as const;
+const budgetMs = policy.tick_budget.budget_ns / 1e6;
+const asMs = (values: (number | null)[] = []) => values.map((value) => (value === null ? null : value / 1e6));
+---
+
+<Base title={`${id} — capacity evidence`} description={claim.statement}>
+  <article class="hub-article">
+    <a class="hub-article-back" href="/evidence/">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      Capacity evidence
+    </a>
+
+    {data.synthetic_fixture && <p class="ev-fixture">{data.synthetic_fixture}</p>}
+
+    <header class="hub-article-head">
+      <div class="hub-article-meta"><span>{data.provider}</span><span>{id}</span><span>as of {data.as_of}</span></div>
+      <h1 class="hub-article-title">{headlineLabel(data)}</h1>
+      <p class="hub-article-description">{claim.statement}</p>
+    </header>
+
+    <div class="mt-prose ev-page">
+      <section>
+        <h2>Outcome</h2>
+        <div class="ev-scroll">
+          <table>
+            <tbody>
+              <tr><th scope="row">Measurement</th><td><Verdict value={results.measurement.search_status} /></td></tr>
+              <tr><th scope="row">Evidence</th><td><Verdict value={results.evidence.status} /> {show(results.evidence.files)} files, {show(results.evidence.bytes)} bytes</td></tr>
+              <tr><th scope="row">Cleanup</th><td><Verdict value={results.cleanup.overall ?? results.cleanup.outcome} /> {results.cleanup.statement}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        {results.measurement.history_not_vouched_for && <p><strong>History, not vouched for:</strong> {results.measurement.history_not_vouched_for}</p>}
+        <ul>
+          <li>{data.separate_from_cax11}</li>
+          <li>An inconclusive run establishes nothing.{!data.establishes && ' This session establishes no capacity claim.'}</li>
+          <li>{data.reads_as}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Hardware and source</h2>
+        <div class="ev-scroll">
+          <table>
+            <thead><tr><th>Role</th><th>Size</th><th>vCPU</th><th>Memory</th><th>Disk</th><th>Architecture</th><th>Image ID</th><th>Region</th></tr></thead>
+            <tbody>
+              {hosts.map(([role, item]) => (
+                <tr><td>{role}</td><td><code>{item.size_slug}</code></td><td>{show(item.vcpus)}</td><td>{show(item.memory_mib, 'MiB')}</td><td>{show(item.disk_gib, 'GiB')}</td><td>{show(item.architecture)}</td><td><code>{show(item.image_id)}</code></td><td><code>{item.region}</code></td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <dl class="ev-facts">
+          <dt>Route</dt><dd><code>{condition.public_route}</code></dd>
+          <dt>Code SHA</dt><dd><code>{show(source.benchmark_sha)}</code></dd>
+          <dt>Controller SHA</dt><dd><code>{show(source.controller_sha)}</code></dd>
+          <dt>Adapter SHA</dt><dd><code>{show(source.adapter_sha)}</code></dd>
+          <dt>Toolchain</dt><dd><code>{show(source.rust_toolchain)}</code> <code>{show(source.target_triple)}</code> <code>{show(source.profile)}</code></dd>
+          <dt>Manifest</dt><dd><code>{show(data.manifest_sha256)}</code></dd>
+          <dt>Gate policy</dt><dd><code>{policy.policy_sha256}</code></dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2>Cost</h2>
+        <div class="ev-scroll">
+          <table>
+            <tbody>
+              <tr><th scope="row">Nominal game tier</th><td>{show(nominal.monthly_usd, 'USD/month')} (<code>{nominal.display}</code>), {show(nominal.players_per_monthly_game_usd)} confirmed players per monthly game-host dollar. {nominal.meaning}</td></tr>
+              <tr><th scope="row">Both-host session</th><td>{show(estimate.total_estimated_usd, 'USD')} over {show(estimate.lifetime_s, 's')}: {estimate.label}. {costs.map(([role, item]) => `${role} ${show(item.compute_usd, 'USD')} compute, ${show(item.transfer_overage_usd, 'USD')} transfer overage.`).join(' ')}</td></tr>
+              <tr><th scope="row">Admission</th><td>{show(economics.admission_estimate.session_estimate_usd, 'USD')} of a {show(economics.admission_estimate.max_estimated_session_usd, 'USD')} cap: {economics.admission_estimate.label}.</td></tr>
+              <tr><th scope="row">Management host</th><td>{show(economics.management_host.monthly_usd, 'USD/month')}, {economics.management_host.label}.</td></tr>
+              <tr>
+                <th scope="row">Actual billing</th>
+                <td>
+                  {economics.invoices.statement}
+                  {economics.invoices.recorded.map((item) => <div>{show(item.period)}: {show(item.amount_usd, 'USD')}, recorded {show(item.recorded_at)}</div>)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>Search path</h2>
+        <div class="ev-scroll">
+          <table>
+            <thead><tr><th>#</th><th>Phase</th><th>Players</th><th>Rep</th><th>Hold</th><th>Outcome</th><th>Offered load</th><th>Tick p95</th><th>RTT p95</th><th>Loss peak</th><th>Verified</th></tr></thead>
+            <tbody>
+              {data.runs.map((run) => (
+                <tr>
+                  <td><a href={`#run-${run.ordinal}`}>{run.ordinal}</a></td><td>{run.phase}</td><td>{run.target}</td><td>{run.repetition}</td><td>{run.hold_s} s</td>
+                  <td><Verdict value={run.outcome} /></td><td>{show(run.offered_load)}</td><td>{show(run.ticks.p95_work_ns, 'ns')}</td><td>{show(run.peers.rtt_p95_ms, 'ms')}</td><td>{show(run.peers.loss_estimate_peak_per_second_mean)}</td><td>{run.verified ? 'yes' : 'no'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>Each run</h2>
+        {data.runs.map((run) => {
+          const trajectory = run.trajectory;
+          return (
+            <section class="ev-run" id={`run-${run.ordinal}`}>
+              <h3>Run {run.ordinal}: {run.phase}, {run.target} players, {run.hold_s} s <Verdict value={run.outcome} /></h3>
+              <p class="ev-run-id"><code>{run.run_id}</code> · {show(run.classification)}</p>
+              <div class="ev-scroll">
+                <table>
+                  <thead><tr><th>Gate</th><th>Measured</th><th>Limit</th><th>Decision</th></tr></thead>
+                  <tbody>
+                    {gateRows(run, policy).map((row) => (
+                      <tr><td>{row.name}</td><td>{row.measured}</td><td>{row.limit}</td><td><Verdict value={row.decision} /></td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div class="ev-scroll">
+                <table>
+                  <caption>Tick work across {show(run.ticks.count)} Ticks, {show(run.ticks.achieved_per_s)} per second</caption>
+                  <thead><tr><th>p50</th><th>p90</th><th>p95</th><th>p99</th><th>Max</th><th>Over budget</th></tr></thead>
+                  <tbody>
+                    <tr><td>{show(run.ticks.p50_work_ns, 'ns')}</td><td>{show(run.ticks.p90_work_ns, 'ns')}</td><td>{show(run.ticks.p95_work_ns, 'ns')}</td><td>{show(run.ticks.p99_work_ns, 'ns')}</td><td>{show(run.ticks.max_work_ns, 'ns')}</td><td>{show(run.ticks.over_budget_at_least)} to {show(run.ticks.over_budget_at_most)}</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              {trajectory.covered ? (
+                <>
+                  <div class="ev-charts">
+                    <TrajectoryChart title="Tick work p95 (ms)" values={asMs(trajectory.tick_p95_work_ns)} limit={budgetMs} limitLabel={`${budgetMs} ms`} unit="ms" />
+                    <TrajectoryChart title="Pooled RTT p95 (ms)" values={trajectory.rtt_p95_ms ?? []} limit={policy.rtt_p95.limit_ms_strictly_below} limitLabel={`${policy.rtt_p95.limit_ms_strictly_below} ms`} unit="ms" />
+                    <TrajectoryChart title="ENet loss estimate" values={trajectory.loss_estimate_mean ?? []} limit={fractionValue(policy.enet_loss.limit_strictly_below)} limitLabel={policy.enet_loss.limit_strictly_below} unit="" />
+                  </div>
+                  <p class="ev-note">{trajectory.scope}</p>
+                  <details class="ev-details">
+                    <summary>Per-second values</summary>
+                    <div class="ev-scroll">
+                      <table>
+                        <thead><tr><th>Second</th><th>Tick p95 (ns)</th><th>Tick max (ns)</th><th>Ticks over budget</th><th>RTT p95 (ms)</th><th>Loss estimate</th></tr></thead>
+                        <tbody>
+                          {Array.from({ length: trajectory.seconds ?? 0 }, (_, second) => (
+                            <tr><td>{second}</td><td>{show(trajectory.tick_p95_work_ns?.[second])}</td><td>{show(trajectory.tick_max_work_ns?.[second])}</td><td>{show(trajectory.tick_over_budget?.[second])}</td><td>{show(trajectory.rtt_p95_ms?.[second])}</td><td>{show(trajectory.loss_estimate_mean?.[second])}</td></tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </details>
+                </>
+              ) : (
+                <p class="ev-note">No per-second record could be read for this run.</p>
+              )}
+            </section>
+          );
+        })}
+      </section>
+
+      <section>
+        <h2>Raw evidence</h2>
+        <p>{raw.policy}</p>
+        <p><code>{raw.inventory_file}</code> sha256 <code>{raw.inventory_sha256}</code>, {show(raw.files)} files, {show(raw.bytes)} bytes.</p>
+        <details class="ev-details">
+          <summary>SHA256 inventory</summary>
+          <pre class="ev-inventory">{inventory}</pre>
+        </details>
+      </section>
+    </div>
+  </article>
+</Base>

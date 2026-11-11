@@ -1,0 +1,11 @@
+---
+/* A decision exactly as the export recorded it. The word always carries the meaning; color only repeats it. */
+interface Props { value: string | null }
+
+const { value } = Astro.props;
+const word = value ?? 'no score';
+const tone = /^(pass|confirmed|complete|clean)$/i.test(word) ? 'good' : /^(fail|corrupt|missing)$/i.test(word) ? 'bad' : 'open';
+const mark = tone === 'good' ? '✓' : tone === 'bad' ? '✕' : '–';
+---
+
+<span class={`ev-verdict ev-verdict-${tone}`}><span aria-hidden="true">{mark}</span> {word}</span>

@@ -947,6 +947,9 @@ The most transferable lesson might be the boring one. Before you trust a capacit
 the generator offered the load, that the wire carried it, and that your checker measured what it
 claims. Ours didn't, at first.
 
+Later runs on DigitalOcean are published as [capacity evidence](/evidence/), down to each run's gates
+and per-second readings. A DigitalOcean result isn't a CAX11 result.
+
 ---
 
 ## Appendices

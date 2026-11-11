@@ -1,0 +1,48 @@
+---
+/* One per-second series as a static SVG line, with its gate limit drawn beside it.
+   Rendered at build, with no client code. A null second breaks the line. */
+interface Props {
+  title: string;
+  values: (number | null)[];
+  limit?: number;
+  limitLabel?: string;
+  unit: string;
+}
+
+const { title, values, limit, limitLabel, unit } = Astro.props;
+
+const W = 320, H = 150, LEFT = 8, RIGHT = 8, TOP = 26, BOTTOM = 22;
+const known = values.filter((value): value is number => value !== null);
+const top = Math.max(limit ?? 0, ...known) || 1;
+const x = (index: number) => LEFT + (index / Math.max(1, values.length - 1)) * (W - LEFT - RIGHT);
+const y = (value: number) => H - BOTTOM - (value / top) * (H - TOP - BOTTOM);
+
+let path = '';
+let drawing = false;
+values.forEach((value, index) => {
+  if (value === null) { drawing = false; return; }
+  path += `${drawing ? 'L' : 'M'}${x(index).toFixed(1)} ${y(value).toFixed(1)}`;
+  drawing = true;
+});
+const peak = known.length ? Math.max(...known) : null;
+const summary = peak === null
+  ? `${title}: no readings.`
+  : `${title}: peak ${peak} ${unit} over ${values.length} seconds${limitLabel ? `, limit ${limitLabel}` : ''}.`;
+---
+
+<figure class="ev-chart">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={summary}>
+    <text class="ev-chart-title" x={LEFT} y="14">{title}</text>
+    <line class="ev-chart-axis" x1={LEFT} x2={W - RIGHT} y1={H - BOTTOM} y2={H - BOTTOM} />
+    {limit !== undefined && (
+      <>
+        <line class="ev-chart-limit" x1={LEFT} x2={W - RIGHT} y1={y(limit)} y2={y(limit)} />
+        <text class="ev-chart-label" x={W - RIGHT} y={y(limit) - 4} text-anchor="end">limit {limitLabel}</text>
+      </>
+    )}
+    {path && <path class="ev-chart-line" d={path} />}
+    <text class="ev-chart-label" x={LEFT} y={H - 7}>0 s</text>
+    <text class="ev-chart-label" x={W - RIGHT} y={H - 7} text-anchor="end">{values.length} s</text>
+    <text class="ev-chart-label" x={W / 2} y={H - 7} text-anchor="middle">{peak === null ? 'no readings' : `peak ${peak} ${unit}`}</text>
+  </svg>
+</figure>

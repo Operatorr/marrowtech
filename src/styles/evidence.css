@@ -1,0 +1,40 @@
+/* Capacity evidence pages: dense tables, static per-second charts. */
+.ev-page section + section { margin-top: 3em; }
+.ev-scroll { overflow-x: auto; margin-top: 1.1em; }
+.ev-scroll table { min-width: 100%; }
+.ev-page caption { caption-side: top; text-align: left; padding-bottom: 8px; color: var(--text-secondary); font-size: var(--text-xs); }
+.ev-page td code, .ev-page dd code, .ev-run-id code { overflow-wrap: anywhere; }
+.ev-page th[scope="row"] { white-space: nowrap; vertical-align: top; }
+
+.ev-fixture { margin-bottom: 32px; padding: 14px 18px; border: 1px solid var(--amber-500); color: var(--text-primary); font-size: var(--text-sm); }
+
+.ev-verdict { font-family: var(--font-mono); font-size: var(--text-xs); white-space: nowrap; color: var(--text-primary); }
+.ev-verdict > span { margin-right: 2px; }
+.ev-verdict-good > span { color: var(--green-500); }
+.ev-verdict-bad > span { color: var(--ember-400); }
+.ev-verdict-open > span { color: var(--amber-500); }
+
+.ev-facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 20px; margin-top: 1.4em; font-size: var(--text-sm); }
+.ev-facts dt { color: var(--text-muted); }
+.ev-facts dd { margin: 0; }
+
+.ev-run { padding-top: 2em; margin-top: 2em; border-top: 1px solid var(--border-subtle); scroll-margin-top: calc(var(--header-h) + 16px); }
+.ev-page section.ev-run + section.ev-run { margin-top: 2em; }
+.ev-page h2 + section.ev-run { margin-top: .6em; padding-top: 0; border-top: 0; }
+.ev-run h3:first-child { margin-top: 0; }
+.ev-run-id { font-size: var(--text-xs); color: var(--text-muted); }
+.ev-note { font-size: var(--text-xs); color: var(--text-muted); }
+
+.ev-charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 1.4em; }
+.ev-chart { margin: 0; background: var(--surface-base); border: 1px solid var(--border-subtle); }
+.ev-chart svg { display: block; width: 100%; height: auto; }
+.ev-chart-title { fill: var(--text-primary); font-family: var(--font-mono); font-size: 11px; }
+.ev-chart-label { fill: var(--text-secondary); font-family: var(--font-mono); font-size: 10px; }
+.ev-chart-axis { stroke: var(--border-default); stroke-width: 1; }
+.ev-chart-limit { stroke: var(--bone-300); stroke-width: 1; stroke-dasharray: 4 3; }
+.ev-chart-line { fill: none; stroke: #8a70ff; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+
+.ev-details { margin-top: 1.2em; }
+.ev-details summary { cursor: pointer; color: var(--text-primary); font-family: var(--font-mono); font-size: var(--text-xs); }
+.ev-details .ev-scroll { max-height: 420px; overflow-y: auto; }
+.ev-inventory { max-height: 420px; overflow: auto; font-size: var(--text-xs); }

@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { evidenceBase, evidenceSummary } from './lib/evidence-schema';
 
 const blog = defineCollection({
 	// Load Markdown and MDX files in the `src/content/blog/` directory.
@@ -19,4 +20,10 @@ const blog = defineCollection({
 	}),
 });
 
-export const collections = { blog };
+// Published DigitalOcean capacity sessions, one directory each, copied in by `pnpm evidence:sync`.
+const evidence = defineCollection({
+	loader: glob({ base: evidenceBase, pattern: '*/summary.json', generateId: ({ entry }) => entry.split('/')[0] }),
+	schema: evidenceSummary,
+});
+
+export const collections = { blog, evidence };
